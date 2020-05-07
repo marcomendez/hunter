@@ -1,0 +1,7 @@
+EDIT:TextField;
+BUTTON:Button;
+TAB ITEM:Tab;
+CHECK BOX:CheckBox;
+MENU ITEM:MenuItem;
+LINK:Link;
+TEXT:Label
