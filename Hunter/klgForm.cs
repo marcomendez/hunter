@@ -1,42 +1,38 @@
-﻿using KeyloggerExample;
+﻿using Hunter;
+using KeyloggerExample;
 using System;
+using System.Configuration;
 using System.Diagnostics;
-using System.IO;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
+/// <summary>
+/// Develop by Marco Mendez
+/// </summary>
 namespace WindowsFormsApplication1
 {
     public partial class klgForm : Form
     {
+        [DllImport("User32.dll")]
+        static extern int SetForegroundWindow(IntPtr point);
+        Process app = null;
+        IntPtr h;
+        string keyWord = ConfigurationManager.AppSettings["KeyWord"];
+
         public klgForm()
         {
             InitializeComponent();
         }
 
-        [DllImport("User32.dll")]
-        static extern int SetForegroundWindow(IntPtr point);
-
-        Process app = null;
-        IntPtr h;
-
         private void cbKeyloggerEnabled_CheckedChanged(object sender, EventArgs e)
         {
-            if (cbKeyloggerEnabled.Checked)
-            {
-                keylogger1.Enabled = true;
-            }
-            else
-            {
-                keylogger1.Enabled = false;
-            }
+            keylogger1.Enabled = cbKeyloggerEnabled.Checked ? true : false;
         }
 
         private void klgForm_Load(object sender, EventArgs e)
         {
-            string inspect = File.ReadAllText("App.txt", Encoding.UTF8);
+            string inspect = ConfigurationManager.AppSettings["Inspect"];
             app = Process.Start(inspect);
             Thread.Sleep(2000);
             app.WaitForInputIdle();
@@ -46,59 +42,36 @@ namespace WindowsFormsApplication1
 
         private void keylogger1_VKCodeAsStringDown(string value, bool isChar)
         {
-            if (value == "s")
+            if (value.ToUpper() == keyWord.ToUpper())
             {
-                resourcesTxt.Clear();
+                txtResources.Clear();
                 SetForegroundWindow(h);
                 SendKeys.Send("^+4");
-                resourcesTxt.Paste();
-                BuildElement();
+                txtResources.Paste();
+                txtElements.Text += CreateElement.BuildElement(txtResources.Text.ToString());
+                txtAppName.Text = CreateElement.GetControlName(txtResources.Text.ToString());
             }
-        }
-
-        private void BuildElement()
-        {
-            string controlName = resourcesTxt.Text.ToString().GetControlName();
-            string controlType = resourcesTxt.Text.ToString().GetControlType();
-            string controlAutomationId = resourcesTxt.Text.ToString().GetControlAutomationId();
-            string controlLocatorType = "...";
-            controlLocatorType = GetLocatorType(controlName, ref controlAutomationId);
-
-            StringBuilder element = new StringBuilder();
-            element.AppendLine($"[Element(\"{controlName}\", ElementType.{controlType})]");
-            element.AppendLine($"[Locator(PlatformType.Desktop, LocatorType.{controlLocatorType}, \"{controlAutomationId}\")]");
-            element.Append($"public I{controlType} {controlName.Replace(" ", string.Empty)}").Append("{ get; }");
-            element.AppendLine("\n").AppendLine("\n");
-            showElementsTxt.Text += element.ToString();
-
-        }
-
-        private static string GetLocatorType(string controlName, ref string controlAutomationId)
-        {
-            string controlLocatorType;
-            if (string.IsNullOrEmpty(controlAutomationId))
-            {
-                controlAutomationId = controlName;
-                controlLocatorType = "Name";
-                if(string.IsNullOrEmpty(controlName))
-                {
-                    controlLocatorType = "...";
-                }
-            }
-            else
-            {
-                controlLocatorType = "AccessibilityId";
-            }
-
-            return controlLocatorType;
         }
 
         private void CleanBtn_Click(object sender, EventArgs e)
         {
-            showElementsTxt.Clear();
-            resourcesTxt.Clear();
+            txtElements.Clear();
+            txtResources.Clear();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            WinApp appXML = new WinApp();
+            appXML.SwitchToWindow(txtAppName.Text);
+
+            txtResources.Clear();
+            txtResources.Text = appXML.GetPageSource();
+        }
+
+        private void close_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
         private void klgForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             try
@@ -106,11 +79,6 @@ namespace WindowsFormsApplication1
                 app.Kill();
             }
             catch { }
-        }
-
-        private void close_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
     }
 }

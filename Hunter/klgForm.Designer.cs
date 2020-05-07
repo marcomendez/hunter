@@ -31,11 +31,18 @@ namespace WindowsFormsApplication1
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(klgForm));
             this.cbKeyloggerEnabled = new System.Windows.Forms.CheckBox();
-            this.resourcesTxt = new System.Windows.Forms.TextBox();
-            this.CleanBtn = new System.Windows.Forms.Button();
-            this.showElementsTxt = new System.Windows.Forms.TextBox();
+            this.btnClean = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.btnXml = new System.Windows.Forms.Button();
+            this.txtAppName = new System.Windows.Forms.TextBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.txtElements = new System.Windows.Forms.TextBox();
+            this.txtResources = new System.Windows.Forms.TextBox();
             this.keylogger1 = new n7aKeylogger.Keylogger();
-            this.close = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbKeyloggerEnabled
@@ -49,40 +56,92 @@ namespace WindowsFormsApplication1
             this.cbKeyloggerEnabled.UseVisualStyleBackColor = true;
             this.cbKeyloggerEnabled.CheckedChanged += new System.EventHandler(this.cbKeyloggerEnabled_CheckedChanged);
             // 
-            // resourcesTxt
+            // btnClean
             // 
-            this.resourcesTxt.AllowDrop = true;
-            this.resourcesTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.resourcesTxt.Location = new System.Drawing.Point(641, 10);
-            this.resourcesTxt.Multiline = true;
-            this.resourcesTxt.Name = "resourcesTxt";
-            this.resourcesTxt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.resourcesTxt.Size = new System.Drawing.Size(219, 371);
-            this.resourcesTxt.TabIndex = 14;
+            this.btnClean.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClean.Location = new System.Drawing.Point(12, 35);
+            this.btnClean.Name = "btnClean";
+            this.btnClean.Size = new System.Drawing.Size(118, 23);
+            this.btnClean.TabIndex = 16;
+            this.btnClean.Text = "Clean";
+            this.btnClean.UseVisualStyleBackColor = true;
+            this.btnClean.Click += new System.EventHandler(this.CleanBtn_Click);
             // 
-            // CleanBtn
+            // btnClose
             // 
-            this.CleanBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.CleanBtn.Location = new System.Drawing.Point(12, 35);
-            this.CleanBtn.Name = "CleanBtn";
-            this.CleanBtn.Size = new System.Drawing.Size(118, 23);
-            this.CleanBtn.TabIndex = 16;
-            this.CleanBtn.Text = "Clean";
-            this.CleanBtn.UseVisualStyleBackColor = true;
-            this.CleanBtn.Click += new System.EventHandler(this.CleanBtn_Click);
+            this.btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClose.Location = new System.Drawing.Point(12, 358);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(118, 23);
+            this.btnClose.TabIndex = 18;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.close_Click);
             // 
-            // showElementsTxt
+            // btnXml
             // 
-            this.showElementsTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btnXml.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnXml.Location = new System.Drawing.Point(12, 143);
+            this.btnXml.Name = "btnXml";
+            this.btnXml.Size = new System.Drawing.Size(118, 23);
+            this.btnXml.TabIndex = 19;
+            this.btnXml.Text = "XML";
+            this.btnXml.UseVisualStyleBackColor = true;
+            this.btnXml.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // txtAppName
+            // 
+            this.txtAppName.Location = new System.Drawing.Point(12, 117);
+            this.txtAppName.Name = "txtAppName";
+            this.txtAppName.Size = new System.Drawing.Size(118, 20);
+            this.txtAppName.TabIndex = 20;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.showElementsTxt.Location = new System.Drawing.Point(136, 12);
-            this.showElementsTxt.Multiline = true;
-            this.showElementsTxt.Name = "showElementsTxt";
-            this.showElementsTxt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.showElementsTxt.Size = new System.Drawing.Size(499, 369);
-            this.showElementsTxt.TabIndex = 17;
+            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.splitContainer1.Location = new System.Drawing.Point(169, 12);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.txtElements);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.txtResources);
+            this.splitContainer1.Size = new System.Drawing.Size(678, 415);
+            this.splitContainer1.SplitterDistance = 240;
+            this.splitContainer1.TabIndex = 21;
+            // 
+            // txtElements
+            // 
+            this.txtElements.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtElements.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtElements.Location = new System.Drawing.Point(3, 3);
+            this.txtElements.Multiline = true;
+            this.txtElements.Name = "txtElements";
+            this.txtElements.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtElements.Size = new System.Drawing.Size(219, 393);
+            this.txtElements.TabIndex = 22;
+            // 
+            // txtResources
+            // 
+            this.txtResources.AllowDrop = true;
+            this.txtResources.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtResources.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtResources.Location = new System.Drawing.Point(17, 3);
+            this.txtResources.Multiline = true;
+            this.txtResources.Name = "txtResources";
+            this.txtResources.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtResources.Size = new System.Drawing.Size(412, 397);
+            this.txtResources.TabIndex = 14;
             // 
             // keylogger1
             // 
@@ -90,32 +149,28 @@ namespace WindowsFormsApplication1
             this.keylogger1.Keylogger_Mode = n7aKeylogger.Keylogger.Keylogger_Modes.Hooks;
             this.keylogger1.VKCodeAsStringDown += new n7aKeylogger.Keylogger.ValueChangedEventHandler(this.keylogger1_VKCodeAsStringDown);
             // 
-            // close
-            // 
-            this.close.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.close.Location = new System.Drawing.Point(12, 358);
-            this.close.Name = "close";
-            this.close.Size = new System.Drawing.Size(118, 23);
-            this.close.TabIndex = 18;
-            this.close.Text = "Close";
-            this.close.UseVisualStyleBackColor = true;
-            this.close.Click += new System.EventHandler(this.close_Click);
-            // 
             // klgForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(872, 393);
-            this.Controls.Add(this.close);
-            this.Controls.Add(this.showElementsTxt);
-            this.Controls.Add(this.CleanBtn);
-            this.Controls.Add(this.resourcesTxt);
+            this.ClientSize = new System.Drawing.Size(859, 439);
+            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.txtAppName);
+            this.Controls.Add(this.btnXml);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.btnClean);
             this.Controls.Add(this.cbKeyloggerEnabled);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "klgForm";
             this.Text = "Hunter";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.klgForm_FormClosing);
             this.Load += new System.EventHandler(this.klgForm_Load);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,10 +179,13 @@ namespace WindowsFormsApplication1
         #endregion
         private Keylogger keylogger1;
         private System.Windows.Forms.CheckBox cbKeyloggerEnabled;
-        private System.Windows.Forms.TextBox resourcesTxt;
-        private System.Windows.Forms.Button CleanBtn;
-        private System.Windows.Forms.TextBox showElementsTxt;
-        private System.Windows.Forms.Button close;
+        private System.Windows.Forms.Button btnClean;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnXml;
+        private System.Windows.Forms.TextBox txtAppName;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.TextBox txtElements;
+        private System.Windows.Forms.TextBox txtResources;
     }
 }
 
